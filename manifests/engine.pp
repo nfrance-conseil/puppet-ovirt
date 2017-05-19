@@ -74,9 +74,7 @@ class ovirt::engine(
   $db_password              = 'dbpassword',
   $db_host                  = 'localhost',
   $db_port                  = '5432',
-  $firewall_manager = $::operatingsystem ? {
-    /(?i-mx:centos|redhat)/ => 'iptables',
-    /(?i-mx:fedora)/        => 'firewalld',
+  $firewall_manager         = 'firewalld', 
   }
 ) inherits ovirt {
 
