@@ -17,11 +17,11 @@ class ovirt(
   $ovirt_release_version  = '41',
 ) {
   case $::osfamily {
-    RedHat: {
-      package { $ovirt_release:
+    'RedHat': {
+      package { 'ovirt-release':
         ensure   => installed,
         provider => 'rpm',
-        source   => "${ovirt_release_url}/ovirt-release41.rpm",
+        source   => "${ovirt_release_base_url}/ovirt-release${ovirt_release_version}.rpm",
       }
     }
     default: {
