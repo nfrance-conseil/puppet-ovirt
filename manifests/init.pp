@@ -10,29 +10,22 @@
 # === Authors
 #
 # Jason Cannon <jason@thisidig.com>
-#
-class ovirt(
-  $ovirt_release_base_url = 'http://ovirt.org/releases'
-) {
+# Joris Dedieu <joris.dedieu@nfrance.com>
 
-  case $::operatingsystem {
-    centos, redhat: {
-      $ovirt_release     = 'ovirt-release-el6'
-      $ovirt_release_url = "${ovirt_release_base_url}/ovirt-release-el.noarch.rpm"
-    }
-    fedora: {
-      $ovirt_release     = 'ovirt-release-fedora'
-      $ovirt_release_url = "${ovirt_release_base_url}/${ovirt_release}.noarch.rpm"
+class ovirt(
+  $ovirt_release_base_url = 'http://resources.ovirt.org/pub/yum-repo',
+  $ovirt_release_version  = '41',
+) {
+  case $::osfamily {
+    RedHat: {
+      package { $ovirt_release:
+        ensure   => installed,
+        provider => 'rpm',
+        source   => "${ovirt_release_url}/ovirt-release41.rpm",
+      }
     }
     default: {
       fail("The ${::operatingsystem} operating system is not supported.")
     }
   }
-
-  package { $ovirt_release:
-    ensure   => installed,
-    provider => 'rpm',
-    source   => $ovirt_release_url,
-  }
-
 }
