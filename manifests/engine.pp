@@ -74,8 +74,7 @@ class ovirt::engine(
   $db_password              = 'dbpassword',
   $db_host                  = 'localhost',
   $db_port                  = '5432',
-  $firewall_manager         = 'firewalld', 
-  }
+  $firewall_manager         = 'firewalld',
 ) inherits ovirt {
 
   package { 'ovirt-engine':
